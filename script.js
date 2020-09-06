@@ -89,7 +89,7 @@ function setup() {
 				awakingSelect.appendChild(awakingOption);
 			}
 			cardDiv.appendChild(awakingSelect);
-			cardDiv.innerHTML += '<br><br>';
+			cardDiv.innerHTML += '<div>';
 			
 			var label = document.createElement('label');
 			var checkbox = document.createElement('input');
@@ -102,6 +102,7 @@ function setup() {
 				statusCheck();
 			};
 			cardDiv.appendChild(label);
+			cardDiv.innerHTML += '</div>';
 			
 			var span = document.createElement('span');
 			var div = document.createElement('div');
