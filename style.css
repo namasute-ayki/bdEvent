@@ -22,3 +22,10 @@ section {
 select {
 	margin: 0 5px;
 }
+
+@media screen and (max-width: 479px) {
+	section {
+		width: calc(100vw - 10px);
+		margin: 30px auto;
+	}
+}
