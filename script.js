@@ -89,7 +89,6 @@ function setup() {
 				awakingSelect.appendChild(awakingOption);
 			}
 			cardDiv.appendChild(awakingSelect);
-			var div = document.createElement('div');
 			
 			var label = document.createElement('label');
 			var checkbox = document.createElement('input');
@@ -102,10 +101,9 @@ function setup() {
 				statusCheck();
 			};
 			div.appendChild(label);
-			cardDiv.appendChild(div);
 			
 			var span = document.createElement('span');
-			div = document.createElement('div');
+			var div = document.createElement('div');
 			div.innerHTML = '∟特効込：';
 			div.appendChild(span);
 			cardDiv.appendChild(div);
