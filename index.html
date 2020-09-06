@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>宴計算機</title>
+	<script src="./script.js"></script>
+	<link
+  href="https://unpkg.com/sanitize.css"
+  rel="stylesheet"
+  />
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="setup()">
+<section>
+	<h1>宴計算機</h1>
+	<p>同一キャラで組んだ時の2.2倍にしか対応していません。</p>
+	<div id="container"></div>
+	
+	
+	
+	<div id="total">
+		
+		<p>浄化班+2班合計値(1.5倍)：<span id="sp2"></span><br>
+			(達成ステージ：<span id="sp2stage"></span>)</p>
+		<p>3班合計値(2倍)：<span id="sp3"></span><br>
+		(達成ステージ：<span id="sp3stage"></span>)</p>
+		<p>チャレンジボーナスMAX：<span id="bonus"></span><br>
+		(達成ステージ：<span id="bonusStage"></span>)</p>
+	</div>
+</section>
+</body>
+</html>

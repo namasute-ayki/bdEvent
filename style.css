@@ -1,0 +1,24 @@
+@charset 'utf-8';
+* {
+	font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo,sans-serif;
+}
+
+section {
+	width: 90%;
+	max-width: 800px;
+	margin: 30px auto;
+}
+
+#first, #second, #third {
+	margin-top: 50px;
+}
+
+#total {
+	background: #eee;
+	padding: 10px;
+	margin-top: 50px;
+}
+
+select {
+	margin: 0 5px;
+}
