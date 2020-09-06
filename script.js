@@ -89,6 +89,7 @@ function setup() {
 				awakingSelect.appendChild(awakingOption);
 			}
 			cardDiv.appendChild(awakingSelect);
+			cardDiv.innerHTML += '<br>';
 			
 			var label = document.createElement('label');
 			var checkbox = document.createElement('input');
