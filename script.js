@@ -19,9 +19,11 @@ var stage = [
 ]
 
 var teamList = ['first', 'second', 'third'];
+var notBDCount = [0, 0, 0];
 
 function setup() {
 	for(key in teamList) {
+		var notBDCount = 0;
 		var container = document.createElement('div');
 		container.id = teamList[key];
 		for(var i = 0; i < 5; i++) {
@@ -31,7 +33,7 @@ function setup() {
 			var numInput = document.createElement('input');
 			numInput.type = 'number';
 			numInput.onchange = function(){
-				statusCheck()
+				statusCheck();
 			};
 			cardDiv.appendChild(numInput);
 			
@@ -41,7 +43,7 @@ function setup() {
 				statusCheck();
 			}
 			
-			for(var j = 0; j < 4; j++) {
+			for(var j = 0; j < 5; j++) {
 				var rareOption = document.createElement('option');
 				switch (j) {
 					case 0:
@@ -56,6 +58,9 @@ function setup() {
 					case 3:
 						rareOption.innerHTML = 'N';
 						break;
+					case 4:
+					rareOption.innerHTML = 'BDキャラ以外';
+					break;
 				}
 				rareSelect.appendChild(rareOption);
 			}
@@ -67,7 +72,7 @@ function setup() {
 				statusCheck();
 			};
 
-			for(var j = 0; j < 5; j++) {
+			for(var j = 0; j < 6; j++) {
 				var awakingOption = document.createElement('option');
 				switch (j) {
 					case 0:
@@ -84,6 +89,9 @@ function setup() {
 						break;
 					case 4:
 						awakingOption.innerHTML = '未凸';
+						break;
+					case 5:
+						awakingOption.innerHTML = 'BDキャラ以外'
 						break;
 				}
 				awakingSelect.appendChild(awakingOption);
@@ -158,13 +166,16 @@ function setup() {
 }
 
 function statusCheck() {
+	notBDCount = [0, 0, 0];
 	var teamTotal = [];
+	var linkSkill = [2.2, 1.8, 1.5, 1.2, 1, 1];
 	for(key in teamList) {
 		var teamNode = document.getElementById(teamList[key]);
 		var skillNode = document.getElementById(teamList[key]+'Skill');
 		var skillIndex = skillNode.selectedIndex;
 		var skillValue = skillNode.getElementsByTagName('option')[skillIndex].value;
-		teamTotal[key] = card(teamNode) * skillValue * 2.2;
+		teamTotal[key] = card(teamNode, key) * skillValue * linkSkill[notBDCount[key]];
+		console.log('BD以外：'+notBDCount+' リンスキ'+linkSkill[notBDCount[key]]);
 		document.getElementById(teamList[key]+'Team').innerHTML = '班の合計値：' + teamTotal[key];
 	}
 	var sp2 = (teamTotal[0] + teamTotal[1]) * 1.5;
@@ -197,18 +208,26 @@ function statusCheck() {
 	document.getElementById('bonus').innerHTML = bonus;
 }
 
-function card(team) {
+function card(team, key) {
 	var card = team.getElementsByClassName('card');
 	var totalArray = []
+	var correctedNum = 0;
 	for(i=0; i<5; i++) {
+		correctedNum = 0;
 		var cardPow = card[i].getElementsByTagName('input')[0].value;
 		var rareNum = card[i].getElementsByClassName('rare')[0].selectedIndex;
 		var awakingNum = card[i].getElementsByClassName('awaking')[0].selectedIndex;
-		var correctedNum = cardPow * correction[rareNum][awakingNum];
-		var target = document.getElementById(team.id + i).checked;
-		if(target==1) {
-			correctedNum = correctedNum * 2;
-		}
+			if(rareNum != 4 && awakingNum != 5 ) {
+				correctedNum = parseInt(cardPow * correction[rareNum][awakingNum]);
+				var target = document.getElementById(team.id + i).checked;
+				if(target==1) {
+					correctedNum = correctedNum * 2;
+				}
+			} else {
+				correctedNum += parseInt(cardPow);
+				console.log(correctedNum);
+				notBDCount[key]++;
+			}
 		card[i].getElementsByTagName('span')[0].innerHTML = correctedNum;
 		
 		totalArray.push(correctedNum);	
