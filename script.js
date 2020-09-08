@@ -218,13 +218,13 @@ function card(team, key) {
 		var rareNum = card[i].getElementsByClassName('rare')[0].selectedIndex;
 		var awakingNum = card[i].getElementsByClassName('awaking')[0].selectedIndex;
 			if(rareNum != 4 && awakingNum != 5 ) {
-				correctedNum = parseInt(cardPow * correction[rareNum][awakingNum]);
+				correctedNum = parseFloat(cardPow * correction[rareNum][awakingNum]);
 				var target = document.getElementById(team.id + i).checked;
 				if(target==1) {
 					correctedNum = correctedNum * 2;
 				}
 			} else {
-				correctedNum += parseInt(cardPow);
+				correctedNum += parseFloat(cardPow);
 				console.log(correctedNum);
 				notBDCount[key]++;
 			}
