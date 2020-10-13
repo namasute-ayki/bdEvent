@@ -124,30 +124,38 @@ function setup() {
 		cardSkill.onchange = function(){
 			statusCheck();
 		};
-		for(var i = 0; i < 6; i++) {
+		for(var i = 0; i < 8; i++) {
 			var cardSkillOption = document.createElement('option');
 			switch (i) {
 				case 0:
+					cardSkillOption.innerHTML = '5%';
+					cardSkillOption.value = 1.05;
+					break;
+				case 1:
+					cardSkillOption.innerHTML = '10%';
+					cardSkillOption.value = 1.1;
+					break;
+				case 2:
 					cardSkillOption.innerHTML = '15%';
 					cardSkillOption.value = 1.15;
 					break;
-				case 1:
+				case 3:
 					cardSkillOption.innerHTML = '20%';
 					cardSkillOption.value = 1.2;
 					break;
-				case 2:
+				case 4:
 					cardSkillOption.innerHTML = '25%';
 					cardSkillOption.value = 1.25;
 					break;
-				case 3:
+				case 5:
 					cardSkillOption.innerHTML = '30%';
 					cardSkillOption.value = 1.3;
 					break;
-				case 4:
+				case 6:
 					cardSkillOption.innerHTML = '35%';
 					cardSkillOption.value = 1.35;
 					break;
-				case 5:
+				case 7:
 					cardSkillOption.innerHTML = '40%';
 					cardSkillOption.value = 1.4;
 					break;
@@ -174,13 +182,13 @@ function statusCheck() {
 		var skillNode = document.getElementById(teamList[key]+'Skill');
 		var skillIndex = skillNode.selectedIndex;
 		var skillValue = skillNode.getElementsByTagName('option')[skillIndex].value;
-		teamTotal[key] = card(teamNode, key) * skillValue * linkSkill[notBDCount[key]];
-		console.log('BD以外：'+notBDCount+' リンスキ'+linkSkill[notBDCount[key]]);
+		teamTotal[key] = Math.ceil(parseFloat(card(teamNode, key) * skillValue * linkSkill[notBDCount[key]]));
+		//console.log('BD以外：'+notBDCount+' リンスキ'+linkSkill[notBDCount[key]]);
 		document.getElementById(teamList[key]+'Team').innerHTML = '班の合計値：' + teamTotal[key];
 	}
-	var sp2 = (teamTotal[0] + teamTotal[1]) * 1.5;
-	var sp3 = teamTotal.reduce((prev,next) => prev+=next) * 2;
-	var bonus = sp3 * 1.2;
+	var sp2 = Math.ceil(parseFloat((teamTotal[0] + teamTotal[1]) * 1.5));
+	var sp3 = Math.ceil(parseFloat(teamTotal.reduce((prev,next) => prev+=next) * 2));
+	var bonus = Math.ceil(parseFloat(sp3 * 1.2));
 	
 	for(i = 0; i < 50; i++) {
 		if(stage[i] < sp2) {
@@ -218,13 +226,13 @@ function card(team, key) {
 		var rareNum = card[i].getElementsByClassName('rare')[0].selectedIndex;
 		var awakingNum = card[i].getElementsByClassName('awaking')[0].selectedIndex;
 			if(rareNum != 4 && awakingNum != 5 ) {
-				correctedNum = parseFloat(cardPow * correction[rareNum][awakingNum]);
+				correctedNum = Math.ceil(parseFloat(cardPow * correction[rareNum][awakingNum]));
 				var target = document.getElementById(team.id + i).checked;
 				if(target==1) {
 					correctedNum = correctedNum * 2;
 				}
 			} else {
-				correctedNum += parseFloat(cardPow);
+				correctedNum += Math.ceil(parseFloat(cardPow));
 				console.log(correctedNum);
 				notBDCount[key]++;
 			}
