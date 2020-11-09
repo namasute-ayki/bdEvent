@@ -182,15 +182,23 @@ function statusCheck() {
 		var skillNode = document.getElementById(teamList[key]+'Skill');
 		var skillIndex = skillNode.selectedIndex;
 		var skillValue = skillNode.getElementsByTagName('option')[skillIndex].value;
-		teamTotal[key] = Math.ceil(parseFloat(card(teamNode, key) * skillValue * linkSkill[notBDCount[key]]));
+		teamTotal[key] = parseFloat(card(teamNode, key) * skillValue * linkSkill[notBDCount[key]]);
 		//console.log('BD以外：'+notBDCount+' リンスキ'+linkSkill[notBDCount[key]]);
-		document.getElementById(teamList[key]+'Team').innerHTML = '班の合計値：' + teamTotal[key];
+		document.getElementById(teamList[key]+'Team').innerHTML = '班の合計値：' + Math.ceil(teamTotal[key]);
+	
 	}
+	var sp1 = Math.ceil(teamTotal[0]);
 	var sp2 = Math.ceil(parseFloat((teamTotal[0] + teamTotal[1]) * 1.5));
 	var sp3 = Math.ceil(parseFloat(teamTotal.reduce((prev,next) => prev+=next) * 2));
 	var bonus = Math.ceil(parseFloat(sp3 * 1.2));
 	
 	for(i = 0; i < 50; i++) {
+		if(stage[i] < sp1) {
+			document.getElementById('sp1stage').innerHTML = i+1;
+			if(i == 49) {
+				document.getElementById('sp1stage').innerHTML += '🎉';
+			}
+		}
 		if(stage[i] < sp2) {
 			document.getElementById('sp2stage').innerHTML = i+1;
 			if(i == 49) {
@@ -211,6 +219,7 @@ function statusCheck() {
 		}
 	}
 	
+	document.getElementById('sp1').innerHTML = sp1;
 	document.getElementById('sp2').innerHTML = sp2;
 	document.getElementById('sp3').innerHTML = sp3;
 	document.getElementById('bonus').innerHTML = bonus;
